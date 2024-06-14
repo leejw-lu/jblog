@@ -26,7 +26,7 @@ public class UserService {
 	public void join(UserVo userVo) {
 		String userId=userVo.getId();
 		userRepository.insert(userVo);
-		blogRepository.insert(new BlogVo(userId, userId+"의 블로그", "/assets/images/logo.jpg"));
+		blogRepository.insert(new BlogVo(userId, userId+"의 블로그", "/assets/images/spring-logo.jpg"));
 		categoryRepository.insert(new CategoryVo("미분류", null, userId));
 	}
 	

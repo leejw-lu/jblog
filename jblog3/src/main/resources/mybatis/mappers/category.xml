@@ -8,4 +8,15 @@
 		]]>
 	</insert>
 	
+	<select id="findAll" parameterType="string" resultType="categoryvo">
+	<![CDATA[	
+		select no, name from category where id= #{id } order by no desc]]>
+	</select>
+	
+	<select id="findByDefaultNo" parameterType="string" resultType="long">
+		<![CDATA[
+			select no from category where id=#{id } order by no desc limit 1
+		]]>
+	</select>
+	
 </mapper>
