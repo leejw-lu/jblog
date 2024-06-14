@@ -95,7 +95,7 @@
 	</bean>
 
 	<!-- mvc url-resource mapping -->
-	<mvc:resources location="file:/jblog-uploads/" mapping="/images/**" />
+	<mvc:resources location="file:/jblog-uploads/" mapping="/assets/images/**" />
 	<context:annotation-config />
 
 	<context:annotation-config />
