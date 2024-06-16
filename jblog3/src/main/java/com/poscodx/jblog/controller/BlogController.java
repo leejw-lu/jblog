@@ -63,7 +63,6 @@ public class BlogController {
 	public String adminBasic(@PathVariable("id") String id, Model model) {
 		BlogVo vo= blogService.getContents(id);
 		model.addAttribute("vo", vo);
-		model.addAttribute("id", id);
 		
 		return "/blog/admin-basic";
 	}
@@ -76,7 +75,6 @@ public class BlogController {
 			blogVo.setLogo(logo);
 		}
 		
-		//System.out.println("blogVo: " + blogVo);
 		blogVo.setId(id);
 		blogService.updateBlog(blogVo);
 		

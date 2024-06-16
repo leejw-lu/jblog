@@ -20,7 +20,7 @@
 						<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="${pageContext.request.contextPath}/${id }/admin/basic">블로그 관리</a></li>
+						<li><a href="${pageContext.request.contextPath}/${authUser.id }/admin/basic">블로그 관리</a></li>
 						<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 					</c:otherwise>
 				</c:choose>
@@ -53,7 +53,7 @@
 			<h2>카테고리</h2>
 			<ul>
 				<c:forEach items='${clist }' var='category' varStatus="status">
-					<li><a href="">${category.name }</a></li>
+					<li><a href="${pageContext.request.contextPath}/${id }/${category.no }">${category.name }</a></li>
 				</c:forEach>
 			</ul>
 		</div>
