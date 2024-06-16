@@ -76,7 +76,7 @@ public class BlogController {
 			blogVo.setLogo(logo);
 		}
 		
-		System.out.println("blogVo: " + blogVo);
+		//System.out.println("blogVo: " + blogVo);
 		blogVo.setId(id);
 		blogService.updateBlog(blogVo);
 		
@@ -90,9 +90,20 @@ public class BlogController {
 	}
 	
 	@Auth
-	@RequestMapping("/admin/write")
-	public String adminWrite(@PathVariable("id") String id) {
+	@GetMapping("/admin/write")
+	public String adminWrite(@PathVariable("id") String id, Model model) {
 		//if(!id.equals(authUser.getId()))
+		List<CategoryVo> list= categoryService.getContentsList(id);
+		model.addAttribute("clist", list);
+
 		return "/blog/admin-write";
+	}
+	
+	@Auth
+	@PostMapping("/admin/write")
+	public String adminWrite(@PathVariable("id") String id, PostVo postVo) {
+		postService.addContents(postVo);
+		
+		return "redirect:/"+id;
 	}
 }

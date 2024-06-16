@@ -51,5 +51,9 @@ public class PostService {
 		
 		return postRepository.findAll(id, cNo);
 	}
+
+	public void addContents(PostVo vo) {
+		postRepository.insert(vo);
+	}
 	
 }

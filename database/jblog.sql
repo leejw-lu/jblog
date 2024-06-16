@@ -4,10 +4,12 @@ select * from blog;
 select * from category;
 select * from post;
 
+select id, name from user where id = 'jiwoo' and password = '1234';
+
 insert into user values('jiwoo', '지우', password('1234'), current_date());
 insert into category values(null, '미분류', null, current_date(), 'aa');
 insert into blog values('aa', 'aa님의 블로그', '로고');
-insert into post values(null,'블로그 제목','내용',now(),5);
+insert into post values(null,'블로그 제목','내용',now(),1);
 
 select no, name from category where id='jiwoo' order by name;
 select id, title, logo from blog where id= 'jiwoo';
@@ -18,6 +20,11 @@ select no, title, reg_date, category_no from post where category_no=5 order by r
 
 -- join
 select a.no as no, title, contents from post a, category b where a.category_no=b.no and a.no=1 and b.id='jiwoo';
+
+-- admin 글작성
+select no, name from category where id = 'jiwoo';
+
+-- admion 카테고리
 
 -- 스프링 캠프에서는 JVM(Java Virtual Machine) 기반 시스템의 백엔드(Back-end) 또는 서버사이드(Server-side)라고 칭하는 영역을 개발하는 애플리케이션 서버 개발에 관한 기술과 정보, 경험을 공유하는 컨퍼런스입니다.
 -- 핵심주제로 Java와 Spring IO Platform을 다루고 있으며, 그외 Architecture나 JVM Language, Software Development Process 등 애플리케이션 서버 개발에 필요한 다양한 주제를 다루려고 노력하고 있습니다.
