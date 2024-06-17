@@ -19,12 +19,13 @@ select no from category where id='jiwoo' order by no desc limit 1;
 select no, title, reg_date, category_no from post where category_no=5 order by reg_date desc;
 
 -- join
-select a.no as no, title, contents from post a, category b where a.category_no=b.no and a.no=1 and b.id='jiwoo';
+select a.no as no, title, contents from post a, category b where a.category_no=b.no and a.no=1 and b.id='jiwoo' group by category_no;
 
 -- admin 글작성
 select no, name from category where id = 'jiwoo';
 
--- admion 카테고리
+-- admin category 별 post 개수 list
+select a.no as no, name, count(b.no) as postCount, description from category a left join post b on a.no=b.category_no where a.id='jiwoo' group by a.no order by a.no desc;
 
 -- 스프링 캠프에서는 JVM(Java Virtual Machine) 기반 시스템의 백엔드(Back-end) 또는 서버사이드(Server-side)라고 칭하는 영역을 개발하는 애플리케이션 서버 개발에 관한 기술과 정보, 경험을 공유하는 컨퍼런스입니다.
 -- 핵심주제로 Java와 Spring IO Platform을 다루고 있으며, 그외 Architecture나 JVM Language, Software Development Process 등 애플리케이션 서버 개발에 필요한 다양한 주제를 다루려고 노력하고 있습니다.

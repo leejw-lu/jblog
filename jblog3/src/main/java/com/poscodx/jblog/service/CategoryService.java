@@ -17,4 +17,12 @@ public class CategoryService {
 		return categoryRepository.findAll(id);
 	}
 
+	public void addContents(CategoryVo vo) {
+		categoryRepository.insert(vo);
+	}
+
+	public List<CategoryVo> getContentsListWithPostCount(String id) {
+		return categoryRepository.findAllWithPostCount(id);
+	}
+
 }

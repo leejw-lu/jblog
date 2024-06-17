@@ -26,4 +26,8 @@ public class CategoryRepository {
 	public Long findByDefaultNo(String id) {
 		return sqlSession.selectOne("category.findByDefaultNo", id);
 	}
+
+	public List<CategoryVo> findAllWithPostCount(String id) {
+		return sqlSession.selectList("category.findAllWithPostCount", id);
+	}
 }

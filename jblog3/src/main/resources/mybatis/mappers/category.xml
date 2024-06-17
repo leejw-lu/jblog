@@ -19,4 +19,13 @@
 		]]>
 	</select>
 	
+	<select id="findAllWithPostCount" parameterType="string" resultType="categoryvo">
+	<![CDATA[
+		select a.no as no, name, count(b.no) as postCount, description from category a 
+		left join post b on a.no=b.category_no where a.id=#{id } group by a.no order by a.no desc;
+		]]>
+	</select>
+	
+
+	
 </mapper>

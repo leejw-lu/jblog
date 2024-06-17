@@ -75,23 +75,42 @@ public class BlogController {
 			blogVo.setLogo(logo);
 		}
 		
-		blogVo.setId(id);
 		blogService.updateBlog(blogVo);
 		
 		return "redirect:/"+id+"/admin/basic";
 	}
 	
 	@Auth
-	@RequestMapping("/admin/category")
-	public String adminCategory(@PathVariable("id") String id) {
+	@GetMapping("/admin/category")
+	public String adminCategory(@PathVariable("id") String id, Model model) {
+		BlogVo blogvo= blogService.getContents(id);
+		List<CategoryVo> categoryWithPostCountList=categoryService.getContentsListWithPostCount(id);
+		
+		model.addAttribute("blogVo", blogvo);
+		model.addAttribute("cwithplist", categoryWithPostCountList);
+		
 		return "/blog/admin-category";
 	}
+	
+	@Auth
+	@PostMapping("/admin/category")
+	public String adminCategory(@PathVariable("id") String id, CategoryVo categoryVo) {
+		categoryVo.setId(id);
+		categoryService.addContents(categoryVo);
+		
+		return "redirect:/"+id+"/admin/category";
+	}
+	
+	
 	
 	@Auth
 	@GetMapping("/admin/write")
 	public String adminWrite(@PathVariable("id") String id, Model model) {
 		//if(!id.equals(authUser.getId()))
+		BlogVo blogvo= blogService.getContents(id);
 		List<CategoryVo> list= categoryService.getContentsList(id);
+		
+		model.addAttribute("blogVo", blogvo);
 		model.addAttribute("clist", list);
 
 		return "/blog/admin-write";
