@@ -4,6 +4,9 @@ select * from blog;
 select * from category;
 select * from post;
 
+delete from post where category_no=7;
+delete from category where no= and id='jiwoo';
+
 select id, name from user where id = 'jiwoo' and password = '1234';
 
 insert into user values('jiwoo', '지우', password('1234'), current_date());

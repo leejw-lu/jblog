@@ -3,6 +3,8 @@ package com.poscodx.jblog.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,7 @@ import com.poscodx.jblog.service.PostService;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.PostVo;
+import com.poscodx.jblog.vo.UserVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
@@ -60,16 +63,21 @@ public class BlogController {
 	
 	@Auth
 	@GetMapping("/admin/basic")
-	public String adminBasic(@PathVariable("id") String id, Model model) {
+	public String adminBasic(HttpSession session, @PathVariable("id") String id, Model model) {
+		UserVo authUser= (UserVo) session.getAttribute("authUser");
+		if(!id.equals(authUser.getId())) {
+			return "redirect:/"+id;
+		}
 		BlogVo vo= blogService.getContents(id);
 		model.addAttribute("vo", vo);
 		
 		return "/blog/admin-basic";
+		
 	}
 	
 	@Auth
 	@PostMapping("/admin/basic")
-	public String adminPost (@PathVariable("id") String id, BlogVo blogVo, @RequestParam(value="file") MultipartFile file) {
+	public String adminPost(@PathVariable("id") String id, BlogVo blogVo, @RequestParam(value="file") MultipartFile file) {
 		String logo= fileuploadService.restore(file);	//url
 		if (logo !=null) {
 			blogVo.setLogo(logo);
@@ -82,7 +90,12 @@ public class BlogController {
 	
 	@Auth
 	@GetMapping("/admin/category")
-	public String adminCategory(@PathVariable("id") String id, Model model) {
+	public String adminCategory(HttpSession session, @PathVariable("id") String id, Model model) {
+		UserVo authUser= (UserVo) session.getAttribute("authUser");
+		if(!id.equals(authUser.getId())) {
+			return "redirect:/"+id;
+		}
+		
 		BlogVo blogvo= blogService.getContents(id);
 		List<CategoryVo> categoryWithPostCountList=categoryService.getContentsListWithPostCount(id);
 		
@@ -103,8 +116,12 @@ public class BlogController {
 	
 	@Auth
 	@GetMapping("/admin/write")
-	public String adminWrite(@PathVariable("id") String id, Model model) {
-		//if(!id.equals(authUser.getId()))
+	public String adminWrite(HttpSession session, @PathVariable("id") String id, Model model) {
+		UserVo authUser= (UserVo) session.getAttribute("authUser");
+		if(!id.equals(authUser.getId())) {
+			return "redirect:/"+id;
+		}
+		
 		BlogVo blogvo= blogService.getContents(id);
 		List<CategoryVo> list= categoryService.getContentsList(id);
 		
@@ -124,7 +141,12 @@ public class BlogController {
 	
 	@Auth
 	@RequestMapping("/admin/category/delete/{no}")
-	public String adminWrite(@PathVariable("id") String id, @PathVariable("no") Long no) {
+	public String adminWrite(HttpSession session, @PathVariable("id") String id, @PathVariable("no") Long no) {
+		UserVo authUser= (UserVo) session.getAttribute("authUser");
+		if(!id.equals(authUser.getId())) {
+			return "redirect:/"+id;
+		}
+		
 		categoryService.deleteContents(id, no);
 		
 		return "redirect:/"+id+"/admin/category";
