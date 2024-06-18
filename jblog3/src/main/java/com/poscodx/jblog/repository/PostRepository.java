@@ -36,4 +36,7 @@ private SqlSession sqlSession;
 		sqlSession.insert("post.insert", vo);
 	}
 
+	public void deleteByCategoryNo(Long no) {
+		sqlSession.insert("post.deleteByCategoryNo", no);
+	}
 }

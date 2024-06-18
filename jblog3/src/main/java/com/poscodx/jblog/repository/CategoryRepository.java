@@ -1,6 +1,7 @@
 package com.poscodx.jblog.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -29,5 +30,10 @@ public class CategoryRepository {
 
 	public List<CategoryVo> findAllWithPostCount(String id) {
 		return sqlSession.selectList("category.findAllWithPostCount", id);
+	}
+
+	public void deleteByNo(String id, Long no) {
+		sqlSession.delete("category.deleteByNo", Map.of("id", id , "no", no));
+		
 	}
 }

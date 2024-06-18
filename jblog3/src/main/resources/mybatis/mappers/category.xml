@@ -26,6 +26,11 @@
 		]]>
 	</select>
 	
+	<delete id= "deleteByNo" parameterType="map">
+		<![CDATA[
+		delete from category where no=#{no } and id=#{id }
+		]]>
+	</delete>
 
 	
 </mapper>

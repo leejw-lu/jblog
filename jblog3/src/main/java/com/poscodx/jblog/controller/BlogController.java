@@ -101,8 +101,6 @@ public class BlogController {
 		return "redirect:/"+id+"/admin/category";
 	}
 	
-	
-	
 	@Auth
 	@GetMapping("/admin/write")
 	public String adminWrite(@PathVariable("id") String id, Model model) {
@@ -122,5 +120,13 @@ public class BlogController {
 		postService.addContents(postVo);
 		
 		return "redirect:/"+id;
+	}
+	
+	@Auth
+	@RequestMapping("/admin/category/delete/{no}")
+	public String adminWrite(@PathVariable("id") String id, @PathVariable("no") Long no) {
+		categoryService.deleteContents(id, no);
+		
+		return "redirect:/"+id+"/admin/category";
 	}
 }
