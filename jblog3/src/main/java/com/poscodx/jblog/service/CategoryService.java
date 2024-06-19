@@ -21,6 +21,10 @@ public class CategoryService {
 	public List<CategoryVo> getContentsList(String id) {
 		return categoryRepository.findAll(id);
 	}
+	
+	public Long getDefaultNo(String id) {
+		return categoryRepository.findByDefaultNo(id);
+	}
 
 	public void addContents(CategoryVo vo) {
 		categoryRepository.insert(vo);

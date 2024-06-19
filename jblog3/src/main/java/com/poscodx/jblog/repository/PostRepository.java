@@ -18,18 +18,16 @@ private SqlSession sqlSession;
 		this.sqlSession=sqlSession;
 	}
 	
-	public PostVo findByNo(String id, Long pNo) {
-		return sqlSession.selectOne("post.findByNo", pNo);
-		//return sqlSession.selectOne("post.findByNo", Map.of("id", id, "pNo", pNo));
+	public PostVo findByNo(Long pNo, Long cNo) {
+		return sqlSession.selectOne("post.findByNo",  Map.of("pNo", pNo, "cNo", cNo));
 	}
 
 	public Long findByDefaultNo(Long cNo) {
 		return sqlSession.selectOne("post.findByDefaultNo", cNo);
 	}
 
-	public List<PostVo> findAll(String id, Long cNo) {
+	public List<PostVo> findAll(Long cNo) {
 		return sqlSession.selectList("post.findAll", cNo);
-		//return sqlSession.selectList("post.findAll", Map.of("id", id, "cNo", cNo));
 	}
 	
 	public void insert(PostVo vo) {

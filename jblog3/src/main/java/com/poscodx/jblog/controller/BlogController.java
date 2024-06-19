@@ -46,11 +46,28 @@ public class BlogController {
 			@PathVariable("id") String id,
 			@PathVariable("categoryNo") Optional<Long> categoryNo,	//optional 써서 기본값 세팅
 			@PathVariable("postNo") Optional<Long> postNo,  Model model) {
-	
+		
+		/* category, post No값 Optional 확인 후 empty일 경우 deafult no값 세팅하기 */
+		Long cNo=0L;
+		Long pNo=0L;
+		
+		if (categoryNo.isEmpty()) {
+			cNo=categoryService.getDefaultNo(id);
+		} else {
+			cNo=categoryNo.get();
+		}
+		
+		if (postNo.isEmpty()) {
+			pNo=postService.getDefaultNo(cNo);
+			if (pNo==null) pNo=0L;
+		} else {
+			pNo=postNo.get();
+		}
+
 		BlogVo blogvo= blogService.getContents(id);
-		PostVo postVo= postService.getContents(id, categoryNo, postNo);
+		PostVo postVo= postService.getContents(cNo, pNo);
 		List<CategoryVo> categoryList=categoryService.getContentsList(id);
-		List<PostVo> postList=postService.getContentsList(id, categoryNo);
+		List<PostVo> postList=postService.getContentsList(cNo);
 		
 		model.addAttribute("id", id);
 		model.addAttribute("blogVo", blogvo);
@@ -82,7 +99,6 @@ public class BlogController {
 		if (logo !=null) {
 			blogVo.setLogo(logo);
 		}
-		
 		blogService.updateBlog(blogVo);
 		
 		return "redirect:/"+id+"/admin/basic";
@@ -146,7 +162,6 @@ public class BlogController {
 		if(!id.equals(authUser.getId())) {
 			return "redirect:/"+id;
 		}
-		
 		categoryService.deleteContents(id, no);
 		
 		return "redirect:/"+id+"/admin/category";

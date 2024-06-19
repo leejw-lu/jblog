@@ -15,41 +15,18 @@ public class PostService {
 	@Autowired
 	private PostRepository postRepository;
 	
-	@Autowired
-	private CategoryRepository categoryRepository;
-	
-	
-	public PostVo getContents(String id, Optional<Long> categoryNo, Optional<Long> postNo) {
-		Long cNo=null;
-		Long pNo=null;
-
-		/* category, post No값 Optional 확인 후 empty일 경우 deafult no값 세팅하기 */
-		if (categoryNo.isEmpty()) {
-			cNo=categoryRepository.findByDefaultNo(id);
-		} else {
-			cNo=categoryNo.get();
-		}
-		
-		if (postNo.isEmpty()) {
-			pNo=postRepository.findByDefaultNo(cNo);
-		} else {
-			pNo=postNo.get();
-		}
-		
+	public PostVo getContents(Long cNo, Long pNo) {
 		//Post 제목, 내용 가져오기
-		PostVo vo= postRepository.findByNo(id, pNo);
+		PostVo vo= postRepository.findByNo(pNo, cNo);
 		return vo;
 	}
 
-	public List<PostVo> getContentsList(String id, Optional<Long> categoryNo) {
-		Long cNo=null;
-		if (categoryNo.isEmpty()) {
-			cNo=categoryRepository.findByDefaultNo(id);
-		} else {
-			cNo=categoryNo.get();
-		}
-		
-		return postRepository.findAll(id, cNo);
+	public List<PostVo> getContentsList(Long cNo) {
+		return postRepository.findAll(cNo);
+	}
+	
+	public Long getDefaultNo(Long cNo) {
+		return postRepository.findByDefaultNo(cNo);
 	}
 
 	public void addContents(PostVo vo) {

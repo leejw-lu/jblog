@@ -4,8 +4,11 @@ select * from blog;
 select * from category;
 select * from post;
 
+select no, title, contents from post where no=5 and category_no=10000;
+
+
 delete from post where category_no=7;
-delete from category where no= and id='jiwoo';
+-- delete from category where no= and id='jiwoo';
 
 select id, name from user where id = 'jiwoo' and password = '1234';
 
