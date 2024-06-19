@@ -27,7 +27,7 @@ public class UserService {
 		String userId=userVo.getId();
 		userRepository.insert(userVo);
 		blogRepository.insert(new BlogVo(userId, userId+"의 블로그", "/assets/images/spring-logo.jpg"));
-		categoryRepository.insert(new CategoryVo("미분류", null, userId));
+		categoryRepository.insert(new CategoryVo("미분류", "미분류 카테고리 입니다.", userId));
 	}
 	
 	public UserVo getUser(String id, String password) {
