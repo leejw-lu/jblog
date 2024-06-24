@@ -67,6 +67,10 @@ div#header li a 	{ color:#fff; font-weight:bold; text-decoration:none; }
 
 div#container		{ text-align:left }
 
+div	#languages		{ float:right; margin:20px 20px 0 0  }
+div	#languages a		{ display: inline-block; border: #111 2px solid; border-radius: 4px 0 0 4px; line-height:20px; height:20px; padding: 0 5px; color: grey; text-decoration:none }
+div	#languages a + a	{ border-radius: 0 4px 4px 0 }
+div	#languages a.active	{ color:#eee; background-color:#111; font-weight: bold }
 
 /* content */
 div#content	.blog-content	{ padding:10px }
