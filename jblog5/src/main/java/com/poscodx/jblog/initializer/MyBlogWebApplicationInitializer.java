@@ -31,7 +31,7 @@ public class MyBlogWebApplicationInitializer extends AbstractAnnotationConfigDis
 	
 	@Override
 	protected Filter[] getServletFilters() {
-		return new Filter[] {new CharacterEncodingFilter("UTF-8")};
+		return new Filter[] {new CharacterEncodingFilter("UTF-8"), new DelegatingFilterProxy("springSecurityFilterChain")};
 	}
 
 	@Override

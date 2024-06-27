@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.poscodx.jblog.security.UserDetailsImpl;
 import com.poscodx.jblog.vo.UserVo;
 
 @Repository
@@ -25,5 +26,10 @@ public class UserRepository {
 
 	public UserVo findById(String id) {
 		return sqlSession.selectOne("user.findById", id);	
+	}
+	
+	// 나중에 findById 2개 합치기!!
+	public UserDetailsImpl findById2(String id) {
+		return sqlSession.selectOne("user.findById2", id);	
 	}
 }

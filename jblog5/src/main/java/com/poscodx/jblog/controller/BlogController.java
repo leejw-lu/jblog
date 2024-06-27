@@ -3,9 +3,9 @@ package com.poscodx.jblog.controller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.poscodx.jblog.security.Auth;
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.CategoryService;
 import com.poscodx.jblog.service.FileUploadService;
@@ -77,11 +76,13 @@ public class BlogController {
 				
 		return "blog/main";
 	}
-	
-	@Auth
+
 	@GetMapping("/admin/basic")
-	public String adminBasic(HttpSession session, @PathVariable("id") String id, Model model) {
-		UserVo authUser= (UserVo) session.getAttribute("authUser");
+	public String adminBasic(Authentication authentication, @PathVariable("id") String id, Model model) {
+		// authentication null 확인 해줘야 함. 로그인 안한 유저가 접근 하면 에러나기 때문
+		if (authentication== null) return "redirect:/"+id;
+		
+		UserVo authUser = (UserVo)authentication.getPrincipal();
 		if(!id.equals(authUser.getId())) {
 			return "redirect:/"+id;
 		}
@@ -92,7 +93,6 @@ public class BlogController {
 		
 	}
 	
-	@Auth
 	@PostMapping("/admin/basic")
 	public String adminPost(@PathVariable("id") String id, BlogVo blogVo, @RequestParam(value="file") MultipartFile file) {
 		String logo= fileuploadService.restore(file);	//url
@@ -104,10 +104,11 @@ public class BlogController {
 		return "redirect:/"+id+"/admin/basic";
 	}
 	
-	@Auth
 	@GetMapping("/admin/category")
-	public String adminCategory(HttpSession session, @PathVariable("id") String id, Model model) {
-		UserVo authUser= (UserVo) session.getAttribute("authUser");
+	public String adminCategory(Authentication authentication, @PathVariable("id") String id, Model model) {
+		if (authentication== null) return "redirect:/"+id;
+		
+		UserVo authUser = (UserVo)authentication.getPrincipal();
 		if(!id.equals(authUser.getId())) {
 			return "redirect:/"+id;
 		}
@@ -121,7 +122,6 @@ public class BlogController {
 		return "/blog/admin-category";
 	}
 	
-	@Auth
 	@PostMapping("/admin/category")
 	public String adminCategory(@PathVariable("id") String id, CategoryVo categoryVo) {
 		categoryVo.setId(id);
@@ -130,10 +130,11 @@ public class BlogController {
 		return "redirect:/"+id+"/admin/category";
 	}
 	
-	@Auth
 	@GetMapping("/admin/write")
-	public String adminWrite(HttpSession session, @PathVariable("id") String id, Model model) {
-		UserVo authUser= (UserVo) session.getAttribute("authUser");
+	public String adminWrite(Authentication authentication, @PathVariable("id") String id, Model model) {
+		if (authentication== null) return "redirect:/"+id;
+		
+		UserVo authUser = (UserVo)authentication.getPrincipal();
 		if(!id.equals(authUser.getId())) {
 			return "redirect:/"+id;
 		}
@@ -147,18 +148,18 @@ public class BlogController {
 		return "/blog/admin-write";
 	}
 	
-	@Auth
 	@PostMapping("/admin/write")
 	public String adminWrite(@PathVariable("id") String id, PostVo postVo) {
 		postService.addContents(postVo);
 		
 		return "redirect:/"+id;
 	}
-	
-	@Auth
+
 	@RequestMapping("/admin/category/delete/{no}")
-	public String adminWrite(HttpSession session, @PathVariable("id") String id, @PathVariable("no") Long no) {
-		UserVo authUser= (UserVo) session.getAttribute("authUser");
+	public String adminWrite(Authentication authentication, @PathVariable("id") String id, @PathVariable("no") Long no) {
+		if (authentication== null) return "redirect:/"+id;
+		
+		UserVo authUser = (UserVo)authentication.getPrincipal();
 		if(!id.equals(authUser.getId())) {
 			return "redirect:/"+id;
 		}

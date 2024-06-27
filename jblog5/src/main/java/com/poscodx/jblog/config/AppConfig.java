@@ -1,5 +1,7 @@
 package com.poscodx.jblog.config;
 
+import java.security.Security;
+
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -8,12 +10,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.poscodx.jblog.config.app.DBConfig;
 import com.poscodx.jblog.config.app.MyBatisConfig;
+import com.poscodx.jblog.config.app.SecurityConfig;
 
 @Configuration
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
 @ComponentScan({"com.poscodx.jblog.service","com.poscodx.jblog.repository"}) //aspect
-@Import({DBConfig.class, MyBatisConfig.class})
+@Import({DBConfig.class, MyBatisConfig.class, SecurityConfig.class})
 public class AppConfig {
 
 }

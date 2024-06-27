@@ -1,6 +1,7 @@
 package com.poscodx.jblog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +23,13 @@ public class UserService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Transactional
 	public void join(UserVo userVo) {
 		String userId=userVo.getId();
+		userVo.setPassword(passwordEncoder.encode(userVo.getPassword()));
 		userRepository.insert(userVo);
 		blogRepository.insert(new BlogVo(userId, userId+"의 블로그", "/assets/images/spring-logo.jpg"));
 		categoryRepository.insert(new CategoryVo("미분류", "미분류 카테고리 입니다.", userId));
