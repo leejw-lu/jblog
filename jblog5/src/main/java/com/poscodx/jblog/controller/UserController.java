@@ -31,7 +31,7 @@ public class UserController {
 		return "user/joinsuccess";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.GET)
+	@RequestMapping("/login")
 	public String login() {
 		return "user/login";
 	}

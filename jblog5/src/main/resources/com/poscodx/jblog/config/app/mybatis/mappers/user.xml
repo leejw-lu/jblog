@@ -14,13 +14,7 @@
 		]]>
 	</select>
 	
-	<select id="findById" parameterType="string" resultType="uservo">
-		<![CDATA[
-		select id, name from user where id=#{id }
-		]]>
-	</select>
-	
-	<select id="findById2" parameterType="string" resultType="userdetails">
+	<select id="findById" parameterType="string" resultType="map">
 		<![CDATA[
 		select id, name, password from user where id=#{id }
 		]]>

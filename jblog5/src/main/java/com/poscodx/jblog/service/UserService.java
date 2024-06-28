@@ -40,7 +40,7 @@ public class UserService {
 	}
 	
 	public UserVo getUser(String id) {
-		return userRepository.findById(id);
+		return userRepository.findById(id, UserVo.class);
 	}
 
 }
