@@ -31,6 +31,7 @@ public class UserController {
 		return "user/joinsuccess";
 	}
 	
+	// 로그인 실패 시 id 보내주는 request로 인해 GetMapping만 된거 풀어줌
 	@RequestMapping("/login")
 	public String login() {
 		return "user/login";
@@ -38,12 +39,10 @@ public class UserController {
 	
 	@RequestMapping("/auth")
 	public void auth() {
-		
 	}
 	
 	@RequestMapping("/logout")
 	public void logout() {
-		
 	}
 
 }

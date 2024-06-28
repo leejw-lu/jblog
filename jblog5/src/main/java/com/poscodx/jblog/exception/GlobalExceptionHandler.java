@@ -47,11 +47,12 @@ public class GlobalExceptionHandler {
 			os.close();
 		} else {
 			//4. 사과 페이지(정상 종료)
-			if (e instanceof NoHandlerFoundException) {
-//				request
-//					.getRequestDispatcher("/WEB-INF/views/errors/404.jsp")
-//					
+			//container 내부 에러: Dispatcher Servlet타고 ErrorController에서 처리한다.
+			
+			if (e instanceof NoHandlerFoundException) {				
 				request
+					//jblog6에서 /web-inf 밑의 jsp 없앨 예정이므로, errorController로 가도록 미리 변경 
+					//.getRequestDispatcher("/WEB-INF/views/errors/404.jsp")
 					.getRequestDispatcher("/error/404")
 					.forward(request, response);
 			} else {

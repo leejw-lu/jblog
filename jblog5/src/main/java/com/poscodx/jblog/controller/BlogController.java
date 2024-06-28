@@ -77,11 +77,23 @@ public class BlogController {
 		return "blog/main";
 	}
 
+	/** Authentication
+	 * 언제 생성 되는가? 
+	 * SecurityContextPersistenceFilter를 만나면 
+	 * Security Context를 만들고 Authentication 정보가 생긴다. 
+	 * 
+	 * 어떤 정보를 가지는가? 
+	 * principal:인증된 정보 (userVo)
+	 * credential: 비밀번호
+	 * Authorities: ex) ROLE_ADMIN, ROLE_USER
+	 * authenticated: false -> true
+	 */
 	@GetMapping("/admin/basic")
 	public String adminBasic(Authentication authentication, @PathVariable("id") String id, Model model) {
 		// authentication null 확인 해줘야 함. 로그인 안한 유저가 접근 하면 에러나기 때문
 		if (authentication== null) return "redirect:/"+id;
 		
+		// authentication안의 principal 정보 불러오기
 		UserVo authUser = (UserVo)authentication.getPrincipal();
 		if(!id.equals(authUser.getId())) {
 			return "redirect:/"+id;

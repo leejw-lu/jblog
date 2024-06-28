@@ -12,6 +12,7 @@ public class UserDetailsImpl extends UserVo implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// ADMIN, USER 권한 설정 없으므로 null return하기
 		return null;
 	}
 
