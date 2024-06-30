@@ -18,7 +18,7 @@ $(function() {
 		}
 		
 		$.ajax({
-			url: "/jblog5/user/api/checkId?id=" + id,
+			url: "/jblog6/user/api/checkId?id=" + id,
 			type: "get",
 			dataType: "json",
 			error: function(xhr, status, err){

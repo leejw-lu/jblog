@@ -1,4 +1,4 @@
-package com.poscodx.jblog.config.web;
+package com.poscodx.jblog.config;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;

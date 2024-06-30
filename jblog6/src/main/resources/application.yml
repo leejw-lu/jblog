@@ -3,6 +3,7 @@ spring:
    application:
       name: jblog
       
+   # devtools- live reload 
    devtools:
       livereload:
          enabled: true 
@@ -14,6 +15,7 @@ spring:
    # mvc
    mvc:
       static-path-pattern: /assets/**
+      throw-exception-if-no-handler-found: true
       # view:
       #   prefix: /WEB-INF/views/
       #   suffix: .jsp
@@ -54,10 +56,14 @@ mybatis:
 server:
    port: 8088
    servlet:
-      context-patch: /
+      context-path: /jblog6
       encoding: 
          charset: utf-8
          enabled: true
+   error:
+      whitelabel:
+         enabled: false
+      path: /error			#whitelabelErrorControlelr의 /error 경로로 간다.
          
          
 # logging
