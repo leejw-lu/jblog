@@ -3,7 +3,6 @@ package com.poscodx.jblog.controller;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,7 @@ import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.CategoryService;
 import com.poscodx.jblog.service.FileUploadService;
 import com.poscodx.jblog.service.PostService;
+import com.poscodx.jblog.service.UserService;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.PostVo;
@@ -40,11 +40,20 @@ public class BlogController {
 	@Autowired
 	private FileUploadService fileuploadService;
 	
+	@Autowired
+	private UserService userService;
+	
 	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(
 			@PathVariable("id") String id,
 			@PathVariable("categoryNo") Optional<Long> categoryNo,	//optional 써서 기본값 세팅
 			@PathVariable("postNo") Optional<Long> postNo,  Model model) {
+		
+		/* 존재하지 않은 id 요청 확인 */
+		if (userService.getUser(id) == null) {
+			//System.out.println("존재하지 않은 id");
+			return "errors/nouser";
+		}
 		
 		/* category, post No값 Optional 확인 후 empty일 경우 deafult no값 세팅하기 */
 		Long cNo=0L;
